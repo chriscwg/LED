@@ -12,6 +12,7 @@ class MyWebHandler {
     private:
         void handleRoot();
         void test();
+        void startPulseAnimation();
         WebServer _server;
         MyLEDHandler _myLEDHandler;
 };

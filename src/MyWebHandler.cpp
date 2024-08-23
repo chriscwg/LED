@@ -12,17 +12,23 @@ void MyWebHandler::test(){
   _myLEDHandler.test();
 }
 
-void MyWebHandler::setup(const char* ssid,const char* password){
-  WiFi.softAP(ssid, password);
+void MyWebHandler::startPulseAnimation(){
+  _server.send(200, "text/html", "<h1>Pulse animation is being processed</h1>");
+  _myLEDHandler.startPulseAnimation();
+}
 
+void MyWebHandler::setup(const char* ssid,const char* password){
+  //WiFi - um mit ESP im gleichen Netzwerk zu sein
+  WiFi.softAP(ssid, password);
   Serial.print("AC: ");
   Serial.print(WiFi.softAPIP());
   Serial.print(" | ");
   Serial.println(password);
 
+  //WebServer - um auf HTTP-Anfragen zu antworten
   _server.on("/", std::bind(&MyWebHandler::handleRoot, this));
   _server.on("/test", std::bind(&MyWebHandler::test, this));
-
+  _server.on("/startPulseAnimation", std::bind(&MyWebHandler::startPulseAnimation, this));
   _server.begin();
 };
 
