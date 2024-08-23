@@ -6,10 +6,11 @@
 class MyWebHandler {
     public:
         MyWebHandler();
-        void setup();
+        void setup(const char* ssid, const char* password);
         void loop();
     private:
         void handleRoot();
+        void test();
         WebServer _server;
 };
 

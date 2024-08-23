@@ -9,9 +9,9 @@ MyLEDHandler myLEDHandler;
 void setup(){
     Serial.begin(115200);
 
-    myWebHandler.setup();
+    myWebHandler.setup(ssid, password);           //werte sind in Config.h hinterlegt
 
-    myLEDHandler.setup(pinOffen, pinGeschlossen); //werte sind in Config.h definiert
+    myLEDHandler.setup(pinOffen, pinGeschlossen); //werte sind in Config.h hinterlegt
 }
 
 void loop(){

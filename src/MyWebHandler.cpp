@@ -1,8 +1,8 @@
 #include "MyWebHandler.h"
 #include "WiFi.h"
 
-const char* ssid = "ESP32_LED";     //zu Config.h noch verschieben
-const char* password = "kanyewest"; 
+//const char* ssid = "ESP32_LED";     //zu Config.h noch verschieben
+//const char* password = "kanyewest"; 
 
 MyWebHandler::MyWebHandler() : _server(80) {}
 
@@ -10,7 +10,11 @@ void MyWebHandler::handleRoot(){
   _server.send(200, "text/html", "<h1>Ye</h1>");
 }
 
-void MyWebHandler::setup(){
+void MyWebHandler::test(){
+  _server.send(200, "text/html", "<h1>Test is being processed</h1>");
+}
+
+void MyWebHandler::setup(const char* ssid,const char* password){
   WiFi.softAP(ssid, password);
 
   Serial.print("AC: ");
@@ -19,6 +23,7 @@ void MyWebHandler::setup(){
   Serial.println(password);
 
   _server.on("/", std::bind(&MyWebHandler::handleRoot, this));
+  _server.on("/test", std::bind(&MyWebHandler::test, this));
 
   _server.begin();
 };
