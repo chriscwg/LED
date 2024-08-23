@@ -1,10 +1,7 @@
 #include "MyWebHandler.h"
 #include "WiFi.h"
 
-//const char* ssid = "ESP32_LED";     //zu Config.h noch verschieben
-//const char* password = "kanyewest"; 
-
-MyWebHandler::MyWebHandler() : _server(80) {}
+MyWebHandler::MyWebHandler(MyLEDHandler& myLEDHandler) : _server(80), _myLEDHandler(myLEDHandler){}
 
 void MyWebHandler::handleRoot(){
   _server.send(200, "text/html", "<h1>Ye</h1>");
@@ -12,6 +9,7 @@ void MyWebHandler::handleRoot(){
 
 void MyWebHandler::test(){
   _server.send(200, "text/html", "<h1>Test is being processed</h1>");
+  _myLEDHandler.test();
 }
 
 void MyWebHandler::setup(const char* ssid,const char* password){

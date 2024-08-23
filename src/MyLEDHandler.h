@@ -5,7 +5,7 @@
 class MyLEDHandler{
     public:
         void setup(int pinOffen, int pinGeschlossen);
-
+        void test();
 };
 
 
