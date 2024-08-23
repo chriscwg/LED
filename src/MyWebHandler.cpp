@@ -1,4 +1,4 @@
-#include "MyWebHandler.h";
+#include "MyWebHandler.h"
 #include <WiFi.h>
 
 WiFiServer server(80);
@@ -12,6 +12,6 @@ void MyWebHandler::setup(){
   Serial.println(WiFi.softAPIP());
   Serial.print(" | ");
   Serial.println(password);
-  
+
   server.begin();
 }
