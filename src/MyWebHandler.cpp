@@ -22,6 +22,11 @@ void MyWebHandler::stopAnimations(){
   _myLEDHandler.stopAnimations();
 }
 
+void MyWebHandler::startWaveAnimation(){
+  _server.send(200, "text/html", "<h1>Wave animation is being processed</h1>");
+  _myLEDHandler.startWaveAnimation();
+}
+
 void MyWebHandler::setup(const char* ssid,const char* password){
   //WiFi - um mit ESP im gleichen Netzwerk zu sein
   WiFi.softAP(ssid, password);
@@ -35,6 +40,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/test", std::bind(&MyWebHandler::test, this));
   _server.on("/startPulseAnimation", std::bind(&MyWebHandler::startPulseAnimation, this));
   _server.on("/stop", std::bind(&MyWebHandler::stopAnimations, this));
+  _server.on("/startWaveAnimation", std::bind(&MyWebHandler::startWaveAnimation, this));
   _server.begin();
 };
 

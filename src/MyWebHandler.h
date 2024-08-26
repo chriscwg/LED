@@ -13,6 +13,7 @@ class MyWebHandler {
         void handleRoot();
         void test();
         void startPulseAnimation();
+        void startWaveAnimation();
         void stopAnimations();
         WebServer _server;
         MyLEDHandler _myLEDHandler;
