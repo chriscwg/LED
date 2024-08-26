@@ -7,18 +7,18 @@ MyLEDHandler::MyLEDHandler(int pinOffen, int pinGeschlossen) : _pinOffen(pinOffe
     pinMode(_pinGeschlossen, OUTPUT);
 }
 
-
 void MyLEDHandler::test(){
     Serial.println("TEST");
 }
 
 void MyLEDHandler::startPulseAnimation(){
-    _animationSpeed = 50;
-    _currentBrightnessOffen = 100;
+    *_current_animation_ptr = AnimationEnum::PULSE;
+
+    *_animationSpeed_ptr = 5;
+    *_currentBrightnessOffen_ptr = 100;
     _previousMillis = 0;
     _increasing = true;
 
-    *_current_animation_ptr = AnimationEnum::PULSE;
     Serial.println("pulse started");
 }
 
@@ -30,7 +30,7 @@ void MyLEDHandler::stopAnimations(){
 void MyLEDHandler::loop(){
     unsigned long currentMillis = millis();
 
-    if (currentMillis - _previousMillis >= _animationSpeed){        
+    if (currentMillis - _previousMillis >= *_animationSpeed_ptr){  
         analogWrite(_pinOffen, _currentBrightnessOffen);
         analogWrite(_pinGeschlossen, _currentBrightnessGeschlossen);
         update_currentBrightness();
@@ -39,19 +39,25 @@ void MyLEDHandler::loop(){
 }
 
 void MyLEDHandler::update_currentBrightness(){
-    if(*_current_animation_ptr == AnimationEnum::PULSE){
-        if(_increasing){
-            _currentBrightnessOffen++;
-            if(_currentBrightnessOffen >= 255){
-                _increasing = false;
-            }
-        }
-        else {
-            _currentBrightnessOffen--;
-            if(_currentBrightnessOffen == 0){
-                _increasing = true;
-            }
-        }
-        _currentBrightnessGeschlossen = _currentBrightnessOffen;
+    switch(_current_animation){
+        case AnimationEnum::PULSE:
+            play_pulseAnimation();
+            break;     
     }
+}
+
+void MyLEDHandler::play_pulseAnimation(){
+    if(_increasing){
+        _currentBrightnessOffen = _currentBrightnessOffen + 1;
+        if(_currentBrightnessOffen >= 255){
+            _increasing = false;
+        }
+    }
+    else {
+        _currentBrightnessOffen = _currentBrightnessOffen - 1;
+        if(_currentBrightnessOffen == 0){
+            _increasing = true;
+        }
+    }
+    _currentBrightnessGeschlossen = _currentBrightnessOffen;  
 }
