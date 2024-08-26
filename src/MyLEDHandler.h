@@ -19,22 +19,17 @@ class MyLEDHandler{
         int _pinGeschlossen;
         AnimationEnum _current_animation = AnimationEnum::STOP;
         AnimationEnum* _current_animation_ptr = &_current_animation;
+        boolean _increasing = true;
 
         int _animationSpeed = 5; //animationSpeed refers to the time between a change in brightness
         int* _animationSpeed_ptr = &_animationSpeed;
 
         int _currentBrightnessOffen = 0;
         int* _currentBrightnessOffen_ptr = &_currentBrightnessOffen;
-
         int _currentBrightnessGeschlossen = 0;
         int* _currentBrightnessGeschlossen_ptr = &_currentBrightnessGeschlossen;
-
         unsigned long _previousMillis = 0;
-
-        boolean _increasing = true;
         
-        //int* _current_animation_int_ptr = &_current_animation_int;
-        //volatile int _current_animation_int = 0;
         void update_currentBrightness();
         void play_pulseAnimation();
 };

@@ -13,17 +13,13 @@ void MyLEDHandler::test(){
 
 void MyLEDHandler::startPulseAnimation(){
     *_current_animation_ptr = AnimationEnum::PULSE;
-
-    *_animationSpeed_ptr = 5;
-    *_currentBrightnessOffen_ptr = 100;
-    _previousMillis = 0;
-    _increasing = true;
-
     Serial.println("pulse started");
 }
 
 void MyLEDHandler::stopAnimations(){
     *_current_animation_ptr = AnimationEnum::STOP;
+    *_currentBrightnessGeschlossen_ptr = 0;
+    *_currentBrightnessOffen_ptr = 0;
     Serial.println("stopped");
 }
 
