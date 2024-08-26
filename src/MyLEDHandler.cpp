@@ -1,34 +1,36 @@
 #include <Arduino.h>
 #include "MyLEDHandler.h"
+#include "AnimationEnum.h"
 
-MyLEDHandler::MyLEDHandler(int pinOffen, int pinGeschlossen) : _pinOffen(pinOffen), _pinGeschlossen(pinGeschlossen), 
-                            _animationSpeed(5), _currentBrightnessOffen(100), _previousMillis(0), _increasing(true), _current_animation("pulse"), _currentBrightnessGeschlossen(100){}
-
-void MyLEDHandler::setup(){     
-    pinMode(_pinOffen, OUTPUT);         //das in Konstruktor?
+MyLEDHandler::MyLEDHandler(int pinOffen, int pinGeschlossen) : _pinOffen(pinOffen), _pinGeschlossen(pinGeschlossen){
+    pinMode(_pinOffen, OUTPUT);
     pinMode(_pinGeschlossen, OUTPUT);
 }
 
 
-void MyLEDHandler::test()
-{
+void MyLEDHandler::test(){
     Serial.println("TEST");
 }
 
 void MyLEDHandler::startPulseAnimation(){
-    _animationSpeed = 5;
+    _animationSpeed = 50;
     _currentBrightnessOffen = 100;
     _previousMillis = 0;
     _increasing = true;
-    _current_animation = "pulse";
 
+    *_current_animation_ptr = AnimationEnum::PULSE;
     Serial.println("pulse started");
+}
+
+void MyLEDHandler::stopAnimations(){
+    *_current_animation_ptr = AnimationEnum::STOP;
+    Serial.println("stopped");
 }
 
 void MyLEDHandler::loop(){
     unsigned long currentMillis = millis();
 
-    if (currentMillis - _previousMillis >= _animationSpeed){
+    if (currentMillis - _previousMillis >= _animationSpeed){        
         analogWrite(_pinOffen, _currentBrightnessOffen);
         analogWrite(_pinGeschlossen, _currentBrightnessGeschlossen);
         update_currentBrightness();
@@ -37,7 +39,7 @@ void MyLEDHandler::loop(){
 }
 
 void MyLEDHandler::update_currentBrightness(){
-    if(_current_animation == "pulse"){
+    if(*_current_animation_ptr == AnimationEnum::PULSE){
         if(_increasing){
             _currentBrightnessOffen++;
             if(_currentBrightnessOffen >= 255){
