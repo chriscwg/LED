@@ -7,6 +7,4 @@ enum class AnimationEnum {
     WAVE
 };
 
-const char* enumToString(AnimationEnum value);
-
 #endif
