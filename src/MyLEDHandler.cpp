@@ -117,6 +117,7 @@ void MyLEDHandler::play_bootAnimation(){
         analogWrite(_pinGeschlossen, 100-i);
         delay(5);
     }
+    delay(100);
     for(int i=0; i<255; i++){
         analogWrite(_pinGeschlossen, i);
         analogWrite(_pinOffen, i);

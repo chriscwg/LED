@@ -36,6 +36,8 @@ class MyWebHandler {
         "    <a href=\"/startPulseAnimation\">start</a>\n"
         "    <h2>Wave-Labor</h2>\n"
         "    <a href=\"/startWaveAnimation\">start</a>\n"
+        "    <h2>BOOT</h2>\n"
+        "    <a href=\"/startBootAnimation\">start</a>\n"
         "</body>\n"
         "</html>\n";
 
