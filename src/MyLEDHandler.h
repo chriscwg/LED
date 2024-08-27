@@ -44,6 +44,7 @@ class MyLEDHandler{
         void update_currentBrightness();
         void play_pulseAnimation();
         void play_waveAnimation();
+        void play_bootAnimation();
 };
 
 
