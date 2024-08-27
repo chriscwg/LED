@@ -42,11 +42,9 @@ void MyLEDHandler::startBootAnimation(){
 void MyLEDHandler::loop(){
     unsigned long currentMillis = millis();
 
-    if (currentMillis - _previousMillis >= *_animationSpeed_ptr){  
-        int mappedBrightnessOffen = (_currentBrightnessOffen * _maxBrightness) / 255;               //map 0-255 zu 0-_maxBrightness
-        int mappedBrightnessGeschlossen = (_currentBrightnessGeschlossen * _maxBrightness) / 255;   //map 0-255 zu 0-_maxBrightness
-        analogWrite(_pinOffen, mappedBrightnessOffen);
-        analogWrite(_pinGeschlossen, mappedBrightnessGeschlossen);
+    if (currentMillis - _previousMillis >= *_animationSpeed_ptr){ 
+        analogWrite(_pinOffen, (_currentBrightnessOffen * _maxBrightness) / 255);                   //map 0-255 zu 0-_maxBrightness
+        analogWrite(_pinGeschlossen, (_currentBrightnessGeschlossen * _maxBrightness) / 255);       //map 0-255 zu 0-_maxBrightness
         update_currentBrightness();
         _previousMillis = currentMillis;
     }
