@@ -59,8 +59,6 @@ void MyLEDHandler::play_waveAnimation(){
         _currentBrightnessOffen = _currentBrightnessOffen + 1;
         _currentBrightnessGeschlossen = _currentBrightnessGeschlossen - 1;
 
-        
-
         if(_currentBrightnessOffen >= 255){
             *TAKT_ptr = !TAKT;            
         }
@@ -84,7 +82,7 @@ void MyLEDHandler::play_pulseAnimation(){
     }
     else {
         _currentBrightnessOffen = _currentBrightnessOffen - 1;
-        if(_currentBrightnessOffen == 0){
+        if(_currentBrightnessOffen <= 0){
             _increasing__pulse = true;
         }
     }

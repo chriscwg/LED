@@ -4,7 +4,7 @@
 MyWebHandler::MyWebHandler(MyLEDHandler& myLEDHandler) : _server(80), _myLEDHandler(myLEDHandler){}
 
 void MyWebHandler::handleRoot(){
-  _server.send(200, "text/html", "<h1>Ye</h1>");
+  _server.send(200, "text/html", HTML_ROOT);
 }
 
 void MyWebHandler::test(){
@@ -13,29 +13,29 @@ void MyWebHandler::test(){
 }
 
 void MyWebHandler::startPulseAnimation(){
-  _server.send(200, "text/html", "<h1>Pulse animation is being processed</h1>");
   _myLEDHandler.startPulseAnimation();
+  _server.send(200, "text/html", HTML_PULSE);
 }
 
 void MyWebHandler::stopAnimations(){
-  _server.send(200, "text/html", "<h1>all animations are stopped</h1>");
+  _server.send(200, "text/html", HTML_ROOT);
   _myLEDHandler.stopAnimations();
 }
 
 void MyWebHandler::startWaveAnimation(){
-  _server.send(200, "text/html", "<h1>Wave animation is being processed</h1>");
+  _server.send(200, "text/html", HTML_WAVE);
   _myLEDHandler.startWaveAnimation();
 }
 
 void MyWebHandler::setup(const char* ssid,const char* password){
-  //WiFi - um mit ESP im gleichen Netzwerk zu sein
+  //WiFi - um Handy/Laptop mit WLAN des ESPs zu verbinden -> mit ESP im gleichen Netzwerk
   WiFi.softAP(ssid, password);
   Serial.print("AC: ");
   Serial.print(WiFi.softAPIP());
   Serial.print(" | ");
   Serial.println(password);
 
-  //WebServer - um auf HTTP-Anfragen zu antworten
+  //WebServer - um HTTP-Anfragen zu bearbeiten
   _server.on("/", std::bind(&MyWebHandler::handleRoot, this));
   _server.on("/test", std::bind(&MyWebHandler::test, this));
   _server.on("/startPulseAnimation", std::bind(&MyWebHandler::startPulseAnimation, this));
