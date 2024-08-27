@@ -12,6 +12,7 @@ class MyLEDHandler{
         void test();
         void startPulseAnimation();
         void startWaveAnimation();
+        void startBootAnimation();
         void stopAnimations();
         
     private:

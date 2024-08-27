@@ -14,6 +14,7 @@ class MyWebHandler {
         void test();
         void startPulseAnimation();
         void startWaveAnimation();
+        void startBootAnimation();
         void stopAnimations();
         WebServer _server;
         MyLEDHandler _myLEDHandler;
