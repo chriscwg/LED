@@ -39,6 +39,8 @@ class MyLEDHandler{
         int* _currentBrightnessGeschlossen_ptr = &_currentBrightnessGeschlossen;
 
         unsigned long _previousMillis = 0;
+
+        int _maxBrightness = 100;
         
         //private Funktionen
         void update_currentBrightness();

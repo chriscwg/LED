@@ -34,7 +34,6 @@ void MyLEDHandler::startWaveAnimation(){
 
 void MyLEDHandler::startBootAnimation(){
     *_current_animation_ptr = AnimationEnum::BOOT;
-
     Serial.println("Boot started");
     play_bootAnimation();
 }
@@ -44,8 +43,10 @@ void MyLEDHandler::loop(){
     unsigned long currentMillis = millis();
 
     if (currentMillis - _previousMillis >= *_animationSpeed_ptr){  
-        analogWrite(_pinOffen, _currentBrightnessOffen);
-        analogWrite(_pinGeschlossen, _currentBrightnessGeschlossen);
+        int mappedBrightnessOffen = (_currentBrightnessOffen * _maxBrightness) / 255;               //map 0-255 zu 0-_maxBrightness
+        int mappedBrightnessGeschlossen = (_currentBrightnessGeschlossen * _maxBrightness) / 255;   //map 0-255 zu 0-_maxBrightness
+        analogWrite(_pinOffen, mappedBrightnessOffen);
+        analogWrite(_pinGeschlossen, mappedBrightnessGeschlossen);
         update_currentBrightness();
         _previousMillis = currentMillis;
     }
@@ -76,7 +77,6 @@ void MyLEDHandler::play_waveAnimation(){
     }else{
         _currentBrightnessOffen = _currentBrightnessOffen - 1;
         _currentBrightnessGeschlossen = _currentBrightnessGeschlossen + 1;
-
 
         if(_currentBrightnessOffen <= 0){
             *TAKT_ptr = !TAKT;
@@ -131,4 +131,6 @@ void MyLEDHandler::play_bootAnimation(){
         analogWrite(_pinOffen, 255-i);
         delay(8);
     }
+    *_currentBrightnessGeschlossen_ptr = 0;
+    *_currentBrightnessOffen_ptr = 0;
 }
