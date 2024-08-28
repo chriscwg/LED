@@ -23,6 +23,35 @@ class MyWebHandler {
         MyLEDHandler _myLEDHandler;
 
 
+        String JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION =
+        "   function updateMaxBrightness(value){\n"
+        "       document.getElementById('maxBrightnessP').textContent = value.toString()\n"
+        "       fetch('http://192.168.4.1/updateMaxBrightness', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newBrightness: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n";
+
+        String JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION = 
+        "   function updateAnimationSpeed(value){\n"
+        "       document.getElementById('animationSpeedP').textContent = 'Gesamtdauer:' +(value * 512 * 0.000001).toString() + 'sek.'\n"
+        "       fetch('http://192.168.4.1/updateAnimationSpeed', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newAnimationSpeed: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n";
 
 
         const char HTML_ROOT[888] = 
@@ -46,7 +75,7 @@ class MyWebHandler {
 
 
 
-        const char HTML_PULSE[2000] = 
+        String HTML_PULSE = 
         "<!DOCTYPE html>\n"
         "<html lang=\"en\">\n"
         "<head>\n"
@@ -63,33 +92,9 @@ class MyWebHandler {
         "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"5000\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
         "    <p id=\"animationSpeedP\"></p>\n"
         "</body>\n"
-        "<script>\n"
-        "   function updateMaxBrightness(value){\n"
-        "       document.getElementById('maxBrightnessP').textContent = value.toString()\n"
-        "       fetch('http://192.168.4.1/updateMaxBrightness', {\n"
-        "           method: 'POST',\n"
-        "           headers: {\n"
-        "                'Content-Type': 'application/json'\n"
-        "           },\n"
-        "           body: JSON.stringify({ newBrightness: value })\n"
-        "       })\n"
-        "       .then(response => response.json())\n"
-        "       .then(data => console.log(data))\n"
-        "       .catch(error => console.error('Error:', error));\n"
-        "   }\n"
-        "   function updateAnimationSpeed(value){\n"
-        "       document.getElementById('animationSpeedP').textContent = 'Gesamtdauer:' +(value * 512 * 0.000001).toString() + 'sek.'\n"
-        "       fetch('http://192.168.4.1/updateAnimationSpeed', {\n"
-        "           method: 'POST',\n"
-        "           headers: {\n"
-        "                'Content-Type': 'application/json'\n"
-        "           },\n"
-        "           body: JSON.stringify({ newAnimationSpeed: value })\n"
-        "       })\n"
-        "       .then(response => response.json())\n"
-        "       .then(data => console.log(data))\n"
-        "       .catch(error => console.error('Error:', error));\n"
-        "   }\n"
+        "<script>\n" + 
+        String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
+        String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
         "</script>\n"
         "</html>\n";
 
