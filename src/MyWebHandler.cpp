@@ -49,7 +49,7 @@ void MyWebHandler::updateMaxBrightness(){
     String newBrightness = doc["newBrightness"];
     _myLEDHandler.setMaxBrightness(newBrightness.toInt());
   }else{
-    m += "ERROR: no data transmitted";
+    Serial.println("ERROR: no data transmitted");
   }
   Serial.println("update Brightness called");
 }
