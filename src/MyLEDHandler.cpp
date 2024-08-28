@@ -58,6 +58,14 @@ void MyLEDHandler::setMaxBrightness(int newBrightness){
     }
 }
 
+void MyLEDHandler::setAnimationSpeed(int newAnimationSpeed){
+    if(newAnimationSpeed >= 1250 && newAnimationSpeed <= 10000){
+        *_animationSpeedMicros_ptr = newAnimationSpeed;
+    }else{
+        Serial.println("input invalid");
+    }
+}
+
 void MyLEDHandler::update_currentBrightness(){
     switch(_current_animation){
         case AnimationEnum::PULSE:

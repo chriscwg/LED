@@ -17,7 +17,8 @@ class MyWebHandler {
         void startBootAnimation();
         void stopAnimations();
         void updateMaxBrightness();
-        int extractJsonInteger(String);
+        void updateAnimationSpeed();
+
         WebServer _server;
         MyLEDHandler _myLEDHandler;
 
@@ -45,7 +46,7 @@ class MyWebHandler {
 
 
 
-        const char HTML_PULSE[999] = 
+        const char HTML_PULSE[2000] = 
         "<!DOCTYPE html>\n"
         "<html lang=\"en\">\n"
         "<head>\n"
@@ -57,8 +58,10 @@ class MyWebHandler {
         "    <h1>Pulse Labor</h1>\n"
         "    <a href=\"/stop\">stop</a>\n"
         "    <p>Helligkeit</p>\n"
-        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"waveMaxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
+        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
         "    <p id=\"maxBrightnessP\"></p>\n"
+        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"5000\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
+        "    <p id=\"animationSpeedP\"></p>\n"
         "</body>\n"
         "<script>\n"
         "   function updateMaxBrightness(value){\n"
@@ -69,6 +72,19 @@ class MyWebHandler {
         "                'Content-Type': 'application/json'\n"
         "           },\n"
         "           body: JSON.stringify({ newBrightness: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n"
+        "   function updateAnimationSpeed(value){\n"
+        "       document.getElementById('animationSpeedP').textContent = value.toString()\n"
+        "       fetch('http://192.168.4.1/updateAnimationSpeed', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newAnimationSpeed: value })\n"
         "       })\n"
         "       .then(response => response.json())\n"
         "       .then(data => console.log(data))\n"

@@ -54,6 +54,24 @@ void MyWebHandler::updateMaxBrightness(){
   Serial.println("update Brightness called");
 }
 
+void MyWebHandler::updateAnimationSpeed(){
+  if(_server.hasArg("plain")){
+    StaticJsonDocument<200> doc;  //veraltet (noch austauschen)
+    DeserializationError error = deserializeJson(doc, _server.arg("plain"));
+
+    if(error){
+      Serial.println("ERROR WITH DESERIALIZATION");
+      return;
+    }
+
+    String newAnimationSpeed = doc["newAnimationSpeed"];
+    _myLEDHandler.setAnimationSpeed(newAnimationSpeed.toInt());
+  }else{
+    Serial.println("ERROR: no data transmitted");
+  }
+  Serial.println("updateAnimationSpeed called");
+}
+
 void MyWebHandler::setup(const char* ssid,const char* password){
   //WiFi - um Handy/Laptop mit WLAN des ESPs zu verbinden -> mit ESP im gleichen Netzwerk
   WiFi.softAP(ssid, password);
@@ -70,6 +88,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/startWaveAnimation", std::bind(&MyWebHandler::startWaveAnimation, this));
   _server.on("/startBootAnimation", std::bind(&MyWebHandler::startBootAnimation, this));
   _server.on("/updateMaxBrightness", std::bind(&MyWebHandler::updateMaxBrightness, this));
+  _server.on("/updateAnimationSpeed", std::bind(&MyWebHandler::updateAnimationSpeed, this));
   _server.begin();
 };
 
