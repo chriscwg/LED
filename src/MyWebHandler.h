@@ -53,6 +53,15 @@ class MyWebHandler {
         "       .catch(error => console.error('Error:', error));\n"
         "   }\n";
 
+        String HTML_UPDATE_ANIMATION_SPEED = 
+        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"5000\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
+        "    <p id=\"animationSpeedP\"></p>\n";
+
+        String HTML_UPDATE_MAX_BRIGHTNESS = 
+        "    <p>Helligkeit</p>\n"
+        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
+        "    <p id=\"maxBrightnessP\"></p>\n";
+
 
         const char HTML_ROOT[888] = 
         "<!DOCTYPE html>\n"
@@ -85,12 +94,9 @@ class MyWebHandler {
         "</head>\n"
         "<body>\n"
         "    <h1>Pulse Labor</h1>\n"
-        "    <a href=\"/stop\">stop</a>\n"
-        "    <p>Helligkeit</p>\n"
-        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
-        "    <p id=\"maxBrightnessP\"></p>\n"
-        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"5000\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
-        "    <p id=\"animationSpeedP\"></p>\n"
+        "    <a href=\"/stop\">stop</a>\n" +
+        String(HTML_UPDATE_MAX_BRIGHTNESS) +
+        String(HTML_UPDATE_ANIMATION_SPEED) +
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
@@ -99,7 +105,7 @@ class MyWebHandler {
         "</html>\n";
 
 
-        const char HTML_WAVE[888] = 
+        String HTML_WAVE = 
         "<!DOCTYPE html>\n"
         "<html lang=\"en\">\n"
         "<head>\n"
@@ -109,8 +115,14 @@ class MyWebHandler {
         "</head>\n"
         "<body>\n"
         "    <h1>Wave Labor</h1>\n"
-        "    <a href=\"/stop\">stop</a>\n"
+        "    <a href=\"/stop\">stop</a>\n" +
+        String(HTML_UPDATE_MAX_BRIGHTNESS) +
+        String(HTML_UPDATE_ANIMATION_SPEED) +
         "</body>\n"
+        "<script>\n" + 
+        String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
+        String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
+        "</script>\n"
         "</html>\n";
 };
 
