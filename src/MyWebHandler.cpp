@@ -1,5 +1,6 @@
 #include "MyWebHandler.h"
 #include "WiFi.h"
+#include <ArduinoJson.h>
 
 MyWebHandler::MyWebHandler(MyLEDHandler& myLEDHandler) : _server(80), _myLEDHandler(myLEDHandler){}
 
@@ -32,6 +33,31 @@ void MyWebHandler::startBootAnimation(){
   _myLEDHandler.startBootAnimation();
 }
 
+void MyWebHandler::updateMaxBrightness(){
+  String m = "";
+  if(_server.hasArg("plain")){
+    m += _server.arg("plain");
+
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, m);
+
+    if(error){
+      Serial.println("ERROR WITH DESERIALIZATION");
+      return;
+    }
+
+    String newBrightness = doc["newBrightness"];
+    
+    int result = newBrightness.toInt();
+    Serial.println(result);
+    Serial.println(newBrightness);
+
+  }else{
+    m += "ERROR: no data transmitted";
+  }
+  Serial.println("update Brightness called");
+}
+
 void MyWebHandler::setup(const char* ssid,const char* password){
   //WiFi - um Handy/Laptop mit WLAN des ESPs zu verbinden -> mit ESP im gleichen Netzwerk
   WiFi.softAP(ssid, password);
@@ -47,6 +73,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/stop", std::bind(&MyWebHandler::stopAnimations, this));
   _server.on("/startWaveAnimation", std::bind(&MyWebHandler::startWaveAnimation, this));
   _server.on("/startBootAnimation", std::bind(&MyWebHandler::startBootAnimation, this));
+  _server.on("/updateMaxBrightness", std::bind(&MyWebHandler::updateMaxBrightness, this));
   _server.begin();
 };
 
