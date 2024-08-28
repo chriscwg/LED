@@ -14,6 +14,7 @@ class MyLEDHandler{
         void startWaveAnimation();
         void startBootAnimation();
         void stopAnimations();
+        void setMaxBrightness(int);
         
     private:
         int _pinOffen;
@@ -41,6 +42,7 @@ class MyLEDHandler{
         unsigned long _previousMillis = 0;
 
         int _maxBrightness = 100;
+        int* _maxBrightness_ptr = &_maxBrightness;
         
         //private Funktionen
         void update_currentBrightness();

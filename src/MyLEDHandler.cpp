@@ -50,6 +50,14 @@ void MyLEDHandler::loop(){
     }
 }
 
+void MyLEDHandler::setMaxBrightness(int newBrightness){
+    if(newBrightness >= 0 && newBrightness <= 255){
+        *_maxBrightness_ptr = newBrightness;
+    }else{
+        Serial.println("input invalid");
+    }
+}
+
 void MyLEDHandler::update_currentBrightness(){
     switch(_current_animation){
         case AnimationEnum::PULSE:

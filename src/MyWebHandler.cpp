@@ -38,7 +38,7 @@ void MyWebHandler::updateMaxBrightness(){
   if(_server.hasArg("plain")){
     m += _server.arg("plain");
 
-    StaticJsonDocument<200> doc;
+    StaticJsonDocument<200> doc;  //veraltet (noch austauschen)
     DeserializationError error = deserializeJson(doc, m);
 
     if(error){
@@ -47,11 +47,7 @@ void MyWebHandler::updateMaxBrightness(){
     }
 
     String newBrightness = doc["newBrightness"];
-    
-    int result = newBrightness.toInt();
-    Serial.println(result);
-    Serial.println(newBrightness);
-
+    _myLEDHandler.setMaxBrightness(newBrightness.toInt());
   }else{
     m += "ERROR: no data transmitted";
   }
