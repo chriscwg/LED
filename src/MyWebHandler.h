@@ -57,7 +57,7 @@ class MyWebHandler {
         "    <h1>Pulse Labor</h1>\n"
         "    <a href=\"/stop\">stop</a>\n"
         "    <p>Helligkeit</p>\n"
-        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"50\" id=\"waveMaxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
+        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"waveMaxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
         "    <p id=\"maxBrightnessP\"></p>\n"
         "</body>\n"
         "<script>\n"
