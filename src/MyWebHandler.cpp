@@ -34,12 +34,9 @@ void MyWebHandler::startBootAnimation(){
 }
 
 void MyWebHandler::updateMaxBrightness(){
-  String m = "";
   if(_server.hasArg("plain")){
-    m += _server.arg("plain");
-
     StaticJsonDocument<200> doc;  //veraltet (noch austauschen)
-    DeserializationError error = deserializeJson(doc, m);
+    DeserializationError error = deserializeJson(doc, _server.arg("plain"));
 
     if(error){
       Serial.println("ERROR WITH DESERIALIZATION");

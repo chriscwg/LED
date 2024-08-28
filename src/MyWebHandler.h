@@ -78,7 +78,7 @@ class MyWebHandler {
         "       .catch(error => console.error('Error:', error));\n"
         "   }\n"
         "   function updateAnimationSpeed(value){\n"
-        "       document.getElementById('animationSpeedP').textContent = value.toString()\n"
+        "       document.getElementById('animationSpeedP').textContent = 'Gesamtdauer:' +(value * 512 * 0.000001).toString() + 'sek.'\n"
         "       fetch('http://192.168.4.1/updateAnimationSpeed', {\n"
         "           method: 'POST',\n"
         "           headers: {\n"
