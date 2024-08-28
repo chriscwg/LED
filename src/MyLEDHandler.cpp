@@ -80,6 +80,14 @@ void MyLEDHandler::update_currentBrightness(){
     }
 }
 
+void MyLEDHandler::setAnimationIncrement(int newAnimationIncrement){
+    if(newAnimationIncrement >= 1 && newAnimationIncrement <= 5){
+        *_animation_increment_ptr = newAnimationIncrement;
+    }else{
+        Serial.println("input invalid");
+    }
+}
+
 void MyLEDHandler::play_waveAnimation(){
     if(TAKT){
         _currentBrightnessOffen = _currentBrightnessOffen + _animation_increment;

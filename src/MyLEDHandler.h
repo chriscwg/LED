@@ -16,6 +16,7 @@ class MyLEDHandler{
         void stopAnimations();
         void setMaxBrightness(int);
         void setAnimationSpeed(int);
+        void setAnimationIncrement(int);
         
     private:
         int _pinOffen;

@@ -18,6 +18,7 @@ class MyWebHandler {
         void stopAnimations();
         void updateMaxBrightness();
         void updateAnimationSpeed();
+        void setAnimationIncrement();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;
@@ -62,6 +63,26 @@ class MyWebHandler {
         "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
         "    <p id=\"maxBrightnessP\"></p>\n";
 
+        String JAVASCRIPT_SET_ANIMATION_INCREMENT =
+        "   function setAnimationIncrement(value){\n"
+        "       document.getElementById('animationIncrementP').textContent = value.toString(); \n"
+        "       fetch('http://192.168.4.1/setAnimationIncrement', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newAnimationIncrement: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n";
+
+        String HTML_ANIMATION_INCREMENT =
+        "   <button onclick='setAnimationIncrement(1)'>x1</button>\n"
+        "   <button onclick='setAnimationIncrement(2)'>x2</button>\n"
+        "   <button onclick='setAnimationIncrement(3)'>x3</button>\n"
+        "   <p id=\"animationIncrementP\"></p>\n";
 
         const char HTML_ROOT[888] = 
         "<!DOCTYPE html>\n"
@@ -97,10 +118,12 @@ class MyWebHandler {
         "    <a href=\"/stop\">stop</a>\n" +
         String(HTML_UPDATE_MAX_BRIGHTNESS) +
         String(HTML_UPDATE_ANIMATION_SPEED) +
+        String(HTML_ANIMATION_INCREMENT) +
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
+        String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         "</script>\n"
         "</html>\n";
 
@@ -118,10 +141,12 @@ class MyWebHandler {
         "    <a href=\"/stop\">stop</a>\n" +
         String(HTML_UPDATE_MAX_BRIGHTNESS) +
         String(HTML_UPDATE_ANIMATION_SPEED) +
+        String(HTML_ANIMATION_INCREMENT) +
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
+        String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         "</script>\n"
         "</html>\n";
 };
