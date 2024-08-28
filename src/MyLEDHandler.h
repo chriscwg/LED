@@ -45,6 +45,9 @@ class MyLEDHandler{
         int _maxBrightness = 100;
         int* _maxBrightness_ptr = &_maxBrightness;
         
+        int _animation_increment = 2;
+        int* _animation_increment_ptr = &_animation_increment;
+
         //private Funktionen
         void update_currentBrightness();
         void play_pulseAnimation();

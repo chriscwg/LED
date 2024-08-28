@@ -82,15 +82,15 @@ void MyLEDHandler::update_currentBrightness(){
 
 void MyLEDHandler::play_waveAnimation(){
     if(TAKT){
-        _currentBrightnessOffen = _currentBrightnessOffen + 1;
-        _currentBrightnessGeschlossen = _currentBrightnessGeschlossen - 1;
+        _currentBrightnessOffen = _currentBrightnessOffen + _animation_increment;
+        _currentBrightnessGeschlossen = _currentBrightnessGeschlossen - _animation_increment;
 
         if(_currentBrightnessOffen >= 255){
             *TAKT_ptr = !TAKT;            
         }
     }else{
-        _currentBrightnessOffen = _currentBrightnessOffen - 1;
-        _currentBrightnessGeschlossen = _currentBrightnessGeschlossen + 1;
+        _currentBrightnessOffen = _currentBrightnessOffen - _animation_increment;
+        _currentBrightnessGeschlossen = _currentBrightnessGeschlossen + _animation_increment;
 
         if(_currentBrightnessOffen <= 0){
             *TAKT_ptr = !TAKT;
@@ -100,13 +100,13 @@ void MyLEDHandler::play_waveAnimation(){
 
 void MyLEDHandler::play_pulseAnimation(){
     if(_increasing__pulse){
-        _currentBrightnessOffen = _currentBrightnessOffen + 1;
+        _currentBrightnessOffen = _currentBrightnessOffen + _animation_increment;
         if(_currentBrightnessOffen >= 255){
             _increasing__pulse = false;
         }
     }
     else {
-        _currentBrightnessOffen = _currentBrightnessOffen - 1;
+        _currentBrightnessOffen = _currentBrightnessOffen - _animation_increment;
         if(_currentBrightnessOffen <= 0){
             _increasing__pulse = true;
         }
