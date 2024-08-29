@@ -57,7 +57,7 @@ class MyWebHandler {
 
         String JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS =
         "   function setPauseOnMaxBrightness(value){\n"
-        "       document.getElementById('pauseOnMaxBrightnessP').textContent = value.toString()\n"
+        "       document.getElementById('pauseOnMaxBrightnessP').textContent = 'Pause bei maximaler Helligkeit (ms):' + value.toString()\n"
         "       fetch('http://192.168.4.1/setPauseOnMaxBrightness', {\n"
         "           method: 'POST',\n"
         "           headers: {\n"
@@ -75,7 +75,7 @@ class MyWebHandler {
         "    <center><input type=\"range\" min=\"1250\" max=\"10000\" value=\"{ANIMATION_SPEED_PLATZHALTER}\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\"></center>\n";
 
         String HTML_SET_PAUSE_ON_MAX_BRIGHTNESS = 
-        "    <center><p id=\"pauseOnMaxBrightnessP\">{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}</p></center>\n"
+        "    <center><p id=\"pauseOnMaxBrightnessP\">Pause bei maximaler Helligkeit (ms): {PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}</p></center>\n"
         "    <center><input type=\"range\" min=\"0\" max=\"1000\" value=\"{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}\" id=\"pauseOnMaxBrigthness\" onchange=\"setPauseOnMaxBrightness(this.value)\"></center>\n";
 
         String HTML_UPDATE_MAX_BRIGHTNESS = 
@@ -84,7 +84,7 @@ class MyWebHandler {
 
         String JAVASCRIPT_SET_ANIMATION_INCREMENT =
         "   function setAnimationIncrement(value){\n"
-        "       document.getElementById('animationIncrementP').textContent = value.toString(); \n"
+        "       document.getElementById('animationIncrementP').textContent = 'Hebel: x' + value.toString(); \n"
         "       fetch('http://192.168.4.1/setAnimationIncrement', {\n"
         "           method: 'POST',\n"
         "           headers: {\n"
@@ -98,11 +98,10 @@ class MyWebHandler {
         "   }\n";
 
         String HTML_ANIMATION_INCREMENT =
-        "   <center><p>Hebel</p></center>"
+        "   <center><p id=\"animationIncrementP\">Hebel: x{ANIMATION_INCREMENT_PLATZHALTER}</p></center>"
         "   <center><button onclick='setAnimationIncrement(1)'>x1</button>\n"
         "   <button onclick='setAnimationIncrement(2)'>x2</button>\n"
-        "   <button onclick='setAnimationIncrement(3)'>x3</button></center>\n"
-        "   <center><p id=\"animationIncrementP\">{ANIMATION_INCREMENT_PLATZHALTER}</p></center>\n";
+        "   <button onclick='setAnimationIncrement(3)'>x3</button></center>\n";
 
         const char HTML_ROOT[1500] = 
         "<!DOCTYPE html>\n"
