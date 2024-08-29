@@ -18,6 +18,7 @@ void MyWebHandler::startPulseAnimation(){
   htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
   htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
+  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startPulseAnimation();
 }
@@ -32,6 +33,7 @@ void MyWebHandler::startWaveAnimation(){
   htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
   htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
+  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startWaveAnimation();
 }
@@ -96,6 +98,25 @@ void MyWebHandler::setAnimationIncrement(){
   Serial.println("updateAnimationSpeed called");
 }
 
+void MyWebHandler::setPauseOnMaxBrightness(){
+  if(_server.hasArg("plain")){
+    StaticJsonDocument<200> doc;  //veraltet (noch austauschen)
+    DeserializationError error = deserializeJson(doc, _server.arg("plain"));
+
+    if(error){
+      Serial.println("ERROR WITH DESERIALIZATION");
+      return;
+    }
+
+    String newPauseOnMaxBrightness = doc["newPauseOnMaxBrightness"];
+    Serial.println(newPauseOnMaxBrightness);
+    _myLEDHandler.setPauseOnMaxBrightness(newPauseOnMaxBrightness.toInt());
+  }else{
+    Serial.println("ERROR: no data transmitted");
+  }
+  Serial.println("updateAnimationSpeed called");
+}
+
 void MyWebHandler::setup(const char* ssid,const char* password){
   //WiFi - um Handy/Laptop mit WLAN des ESPs zu verbinden -> mit ESP im gleichen Netzwerk
   WiFi.softAP(ssid, password);
@@ -114,6 +135,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/updateMaxBrightness", std::bind(&MyWebHandler::updateMaxBrightness, this));
   _server.on("/updateAnimationSpeed", std::bind(&MyWebHandler::updateAnimationSpeed, this));
   _server.on("/setAnimationIncrement", std::bind(&MyWebHandler::setAnimationIncrement, this));
+  _server.on("/setPauseOnMaxBrightness", std::bind(&MyWebHandler::setPauseOnMaxBrightness, this));
   _server.begin();
 };
 
