@@ -26,7 +26,7 @@ class MyWebHandler {
 
         String JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION =
         "   function updateMaxBrightness(value){\n"
-        "       document.getElementById('maxBrightnessP').textContent = value.toString()\n"
+        "       document.getElementById('maxBrightnessP').textContent = 'Helligkeit:' + value.toString()\n"
         "       fetch('http://192.168.4.1/updateMaxBrightness', {\n"
         "           method: 'POST',\n"
         "           headers: {\n"
@@ -55,13 +55,12 @@ class MyWebHandler {
         "   }\n";
 
         String HTML_UPDATE_ANIMATION_SPEED = 
-        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"{ANIMATION_SPEED_PLATZHALTER}\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
-        "    <p id=\"animationSpeedP\"></p>\n";
+        "    <center><p id=\"animationSpeedP\">Gesamtdauer: ({ANIMATION_SPEED_PLATZHALTER})</p></center>\n"
+        "    <center><input type=\"range\" min=\"1250\" max=\"10000\" value=\"{ANIMATION_SPEED_PLATZHALTER}\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\"></center>\n";
 
         String HTML_UPDATE_MAX_BRIGHTNESS = 
-        "    <p>Helligkeit</p>\n"
-        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"{MAX_BRIGHTNESS_PLATZHALTER}\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
-        "    <p id=\"maxBrightnessP\">{MAX_BRIGHTNESS_PLATZHALTER}</p>\n";
+        "    <center><p id=\"maxBrightnessP\">Helligkeit: {MAX_BRIGHTNESS_PLATZHALTER}</p></center>\n"
+        "    <center><input type=\"range\" min=\"0\" max=\"255\" value=\"{MAX_BRIGHTNESS_PLATZHALTER}\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\"></center>\n";
 
         String JAVASCRIPT_SET_ANIMATION_INCREMENT =
         "   function setAnimationIncrement(value){\n"
@@ -79,10 +78,11 @@ class MyWebHandler {
         "   }\n";
 
         String HTML_ANIMATION_INCREMENT =
-        "   <button onclick='setAnimationIncrement(1)'>x1</button>\n"
+        "   <center><p>Hebel</p></center>"
+        "   <center><button onclick='setAnimationIncrement(1)'>x1</button>\n"
         "   <button onclick='setAnimationIncrement(2)'>x2</button>\n"
-        "   <button onclick='setAnimationIncrement(3)'>x3</button>\n"
-        "   <p id=\"animationIncrementP\">{ANIMATION_INCREMENT_PLATZHALTER}</p>\n";
+        "   <button onclick='setAnimationIncrement(3)'>x3</button></center>\n"
+        "   <center><p id=\"animationIncrementP\">{ANIMATION_INCREMENT_PLATZHALTER}</p></center>\n";
 
         const char HTML_ROOT[1500] = 
         "<!DOCTYPE html>\n"
@@ -131,8 +131,8 @@ class MyWebHandler {
         "    <title>Document</title>\n"
         "</head>\n"
         "<body>\n"
-        "    <h1>Pulse Labor</h1>\n"
-        "    <a href=\"/stop\">stop</a>\n" +
+        "    <center><h1>Pulse Labor</h1></center>\n"
+        "    <center><a href=\"/stop\">stop</a></center>\n" +
         String(HTML_UPDATE_MAX_BRIGHTNESS) +
         String(HTML_UPDATE_ANIMATION_SPEED) +
         String(HTML_ANIMATION_INCREMENT) +
@@ -154,8 +154,8 @@ class MyWebHandler {
         "    <title>Document</title>\n"
         "</head>\n"
         "<body>\n"
-        "    <h1>Wave Labor</h1>\n"
-        "    <a href=\"/stop\">stop</a>\n" +
+        "    <center><h1>Wave Labor</h1></center>\n"
+        "    <center><a href=\"/stop\">stop</a></center>\n" +
         String(HTML_UPDATE_MAX_BRIGHTNESS) +
         String(HTML_UPDATE_ANIMATION_SPEED) +
         String(HTML_ANIMATION_INCREMENT) +
