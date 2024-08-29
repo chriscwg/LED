@@ -41,7 +41,7 @@ class MyWebHandler {
 
         String JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION = 
         "   function updateAnimationSpeed(value){\n"
-        "       document.getElementById('animationSpeedP').textContent = 'Gesamtdauer:' +(value * 512 * 0.000001).toString() + 'sek.'\n"
+        "       document.getElementById('animationSpeedP').textContent = 'Gesamtdauer:' +(value * 512 * 0.000001).toString() + 'sek. (' +value.toString()+')'\n"
         "       fetch('http://192.168.4.1/updateAnimationSpeed', {\n"
         "           method: 'POST',\n"
         "           headers: {\n"
@@ -55,13 +55,13 @@ class MyWebHandler {
         "   }\n";
 
         String HTML_UPDATE_ANIMATION_SPEED = 
-        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"5000\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
+        "    <input type=\"range\" min=\"1250\" max=\"10000\" value=\"{ANIMATION_SPEED_PLATZHALTER}\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\">\n"
         "    <p id=\"animationSpeedP\"></p>\n";
 
         String HTML_UPDATE_MAX_BRIGHTNESS = 
         "    <p>Helligkeit</p>\n"
-        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"255\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
-        "    <p id=\"maxBrightnessP\"></p>\n";
+        "    <input type=\"range\" min=\"0\" max=\"255\" value=\"{MAX_BRIGHTNESS_PLATZHALTER}\" id=\"maxBrightness\" onchange=\"updateMaxBrightness(this.value)\">\n"
+        "    <p id=\"maxBrightnessP\">{MAX_BRIGHTNESS_PLATZHALTER}</p>\n";
 
         String JAVASCRIPT_SET_ANIMATION_INCREMENT =
         "   function setAnimationIncrement(value){\n"
@@ -82,11 +82,11 @@ class MyWebHandler {
         "   <button onclick='setAnimationIncrement(1)'>x1</button>\n"
         "   <button onclick='setAnimationIncrement(2)'>x2</button>\n"
         "   <button onclick='setAnimationIncrement(3)'>x3</button>\n"
-        "   <p id=\"animationIncrementP\"></p>\n";
+        "   <p id=\"animationIncrementP\">{ANIMATION_INCREMENT_PLATZHALTER}</p>\n";
 
         const char HTML_ROOT[888] = 
         "<!DOCTYPE html>\n"
-        "<html lang=\"en\">\n"
+        "<html lang=\"de\">\n"
         "<head>\n"
         "    <meta charset=\"UTF-8\">\n"
         "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
@@ -103,11 +103,24 @@ class MyWebHandler {
         "</body>\n"
         "</html>\n";
 
+        const char HTML_BOOT[888] = 
+        "<!DOCTYPE html>\n"
+        "<html lang=\"de\">\n"
+        "<head>\n"
+        "    <meta charset=\"UTF-8\">\n"
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+        "    <title>Document</title>\n"
+        "</head>\n"
+        "<body>\n"
+        "    <center><h1>BOOT</h1></center>\n"
+        "    <a href=\"/stop\">zurück</a>\n"
+        "</body>\n"
+        "</html>\n";
 
 
         String HTML_PULSE = 
         "<!DOCTYPE html>\n"
-        "<html lang=\"en\">\n"
+        "<html lang=\"de\">\n"
         "<head>\n"
         "    <meta charset=\"UTF-8\">\n"
         "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
@@ -130,7 +143,7 @@ class MyWebHandler {
 
         String HTML_WAVE = 
         "<!DOCTYPE html>\n"
-        "<html lang=\"en\">\n"
+        "<html lang=\"de\">\n"
         "<head>\n"
         "    <meta charset=\"UTF-8\">\n"
         "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"

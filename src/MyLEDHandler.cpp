@@ -158,3 +158,15 @@ void MyLEDHandler::play_bootAnimation(){
     *_currentBrightnessGeschlossen_ptr = 0;
     *_currentBrightnessOffen_ptr = 0;
 }
+
+int MyLEDHandler::getAnimationSpeed(){
+    return *_animationSpeedMicros_ptr;
+}
+
+int MyLEDHandler::getAnimationIncrement(){
+    return *_animation_increment_ptr;
+}
+
+int MyLEDHandler::getMaxBrightness(){
+    return *_maxBrightness_ptr;
+}

@@ -14,8 +14,12 @@ void MyWebHandler::test(){
 }
 
 void MyWebHandler::startPulseAnimation(){
+  String htmlContent = HTML_PULSE;
+  htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
+  htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
+  htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
+  _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startPulseAnimation();
-  _server.send(200, "text/html", HTML_PULSE);
 }
 
 void MyWebHandler::stopAnimations(){
@@ -24,12 +28,16 @@ void MyWebHandler::stopAnimations(){
 }
 
 void MyWebHandler::startWaveAnimation(){
-  _server.send(200, "text/html", HTML_WAVE);
+  String htmlContent = HTML_WAVE;
+  htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
+  htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
+  htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
+  _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startWaveAnimation();
 }
 
 void MyWebHandler::startBootAnimation(){
-  _server.send(200, "text/html", "<h1>BOOT</h1>");
+  _server.send(200, "text/html", HTML_BOOT);
   _myLEDHandler.startBootAnimation();
 }
 
