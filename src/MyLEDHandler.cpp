@@ -43,8 +43,13 @@ void MyLEDHandler::loop(){
     unsigned long currentMicros = micros();
 
     if (currentMicros - _previousMicros >= *_animationSpeedMicros_ptr){ 
-        analogWrite(_pinOffen, (_currentBrightnessOffen * _maxBrightness) / 255);                   //map 0-255 zu 0-_maxBrightness
-        analogWrite(_pinGeschlossen, (_currentBrightnessGeschlossen * _maxBrightness) / 255);       //map 0-255 zu 0-_maxBrightness
+
+        //linear interpolation formula to map 0-255 to _minBrightness-_maxBrightness
+        int H_offen = _minBrightness + (((float)(_currentBrightnessOffen - 0)/(255 - 0)) * (_maxBrightness - _minBrightness));
+        int H_geschlossen = _minBrightness + (((float)(_currentBrightnessGeschlossen - 0)/(255 - 0)) * (_maxBrightness - _minBrightness));
+
+        analogWrite(_pinOffen, H_offen);   
+        analogWrite(_pinGeschlossen, H_geschlossen);
         if(_pause_on_max_brightness > 0){
             *_pause_on_max_brightness_ptr = _pause_on_max_brightness - *_animationSpeedMicros_ptr;
             //dont call update_currentBrightness before the next 500 milliseconds
@@ -66,6 +71,14 @@ void MyLEDHandler::setMaxBrightness(int newBrightness){
 void MyLEDHandler::setAnimationSpeed(int newAnimationSpeed){
     if(newAnimationSpeed >= 1250 && newAnimationSpeed <= 10000){
         *_animationSpeedMicros_ptr = newAnimationSpeed;
+    }else{
+        Serial.println("input invalid");
+    }
+}
+
+void MyLEDHandler::setMinBrightness(int newMinBrightness){
+    if(newMinBrightness >= 0 && newMinBrightness <= 200){
+        *_minBrightness_ptr = newMinBrightness;
     }else{
         Serial.println("input invalid");
     }
@@ -190,4 +203,8 @@ int MyLEDHandler::getMaxBrightness(){
 
 int MyLEDHandler::getPauseOnMaxBrightness(){
     return (*_pause_on_max_brightness_value_ptr / 1000);
+}
+
+int MyLEDHandler::getMinBrightness(){
+    return *_minBrightness_ptr;
 }

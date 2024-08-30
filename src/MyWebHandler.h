@@ -20,6 +20,7 @@ class MyWebHandler {
         void updateAnimationSpeed();
         void setAnimationIncrement();
         void setPauseOnMaxBrightness();
+        void setMinBrightness();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;
@@ -70,10 +71,29 @@ class MyWebHandler {
         "       .catch(error => console.error('Error:', error));\n"
         "   }\n";
 
+        String JAVASCRIPT_SET_MIN_BRIGHTNESS =
+        "   function setMinBrightness(value){\n"
+        "       document.getElementById('minBrightnessP').textContent = 'Minimale Helligkeit: ' + value.toString()\n"
+        "       fetch('http://192.168.4.1/setMinBrightness', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newMinBrightness: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n";
+
         String HTML_UPDATE_ANIMATION_SPEED = 
         "    <center><p id=\"animationSpeedP\">Gesamtdauer: ({ANIMATION_SPEED_PLATZHALTER})</p></center>\n"
         "    <center><input type=\"range\" min=\"1250\" max=\"10000\" value=\"{ANIMATION_SPEED_PLATZHALTER}\" id=\"animationSpeed\" onchange=\"updateAnimationSpeed(this.value)\"></center>\n";
-
+        
+        String HTML_SET_MIN_BRIGHTNESS = 
+        "    <center><p id=\"minBrightnessP\">Minimale Helligkeit: ({MIN_BRIGHTNESS_PLATZHALTER})</p></center>\n"
+        "    <center><input type=\"range\" min=\"0\" max=\"200\" value=\"{MIN_BRIGHTNESS_PLATZHALTER}\" id=\"minBrightness\" onchange=\"setMinBrightness(this.value)\"></center>\n";
+        
         String HTML_SET_PAUSE_ON_MAX_BRIGHTNESS = 
         "    <center><p id=\"pauseOnMaxBrightnessP\">Pause bei maximaler Helligkeit (ms): {PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}</p></center>\n"
         "    <center><input type=\"range\" min=\"0\" max=\"1000\" value=\"{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}\" id=\"pauseOnMaxBrigthness\" onchange=\"setPauseOnMaxBrightness(this.value)\"></center>\n";
@@ -156,12 +176,14 @@ class MyWebHandler {
         String(HTML_UPDATE_ANIMATION_SPEED) +
         String(HTML_ANIMATION_INCREMENT) +
         String(HTML_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        String(HTML_SET_MIN_BRIGHTNESS) +
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
         String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         String(JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        String(JAVASCRIPT_SET_MIN_BRIGHTNESS) +
         "</script>\n"
         "</html>\n";
 
@@ -181,12 +203,14 @@ class MyWebHandler {
         String(HTML_UPDATE_ANIMATION_SPEED) +
         String(HTML_ANIMATION_INCREMENT) +
         String(HTML_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        String(HTML_SET_MIN_BRIGHTNESS) +
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
         String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         String(JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        String(JAVASCRIPT_SET_MIN_BRIGHTNESS) +
         "</script>\n"
         "</html>\n";
 };

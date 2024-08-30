@@ -18,10 +18,12 @@ class MyLEDHandler{
         void setAnimationSpeed(int);
         void setAnimationIncrement(int);
         void setPauseOnMaxBrightness(int);
+        void setMinBrightness(int);
         int getAnimationSpeed();
         int getAnimationIncrement();
         int getMaxBrightness();
         int getPauseOnMaxBrightness();
+        int getMinBrightness();
         
     private:
         int _pinOffen;
@@ -48,7 +50,7 @@ class MyLEDHandler{
 
         unsigned long _previousMicros = 0;
 
-        int _maxBrightness = 100;
+        int _maxBrightness = 255;
         int* _maxBrightness_ptr = &_maxBrightness;
         
         int _animation_increment = 1;
@@ -59,6 +61,9 @@ class MyLEDHandler{
 
         int _pause_on_max_brightness_value = 0;
         int* _pause_on_max_brightness_value_ptr = &_pause_on_max_brightness_value;
+
+        int _minBrightness = 50;
+        int* _minBrightness_ptr = &_minBrightness;
 
         //private Funktionen
         void update_currentBrightness();
