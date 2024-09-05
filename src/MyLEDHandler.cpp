@@ -153,7 +153,7 @@ void MyLEDHandler::play_pulseAnimation(){
 }
 
 void MyLEDHandler::play_bootAnimation(){
-    for(int j=0; j<3; j++){
+    for(int j=0; j<1; j++){
         for(int i=0; i<101; i++){
             analogWrite(_pinGeschlossen, 100-i);
             analogWrite(_pinOffen, i);
