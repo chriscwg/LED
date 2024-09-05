@@ -5,6 +5,7 @@ enum class AnimationEnum {
     STOP,
     PULSE,
     WAVE,
+    WAVE2,
     BOOT
 };
 

@@ -21,6 +21,7 @@ class MyWebHandler {
         void setAnimationIncrement();
         void setPauseOnMaxBrightness();
         void setMinBrightness();
+        void startWaveAnimation2();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;

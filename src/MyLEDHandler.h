@@ -24,6 +24,7 @@ class MyLEDHandler{
         int getMaxBrightness();
         int getPauseOnMaxBrightness();
         int getMinBrightness();
+        void startWaveAnimation2();
         
     private:
         int _pinOffen;
@@ -38,6 +39,12 @@ class MyLEDHandler{
         //variablen für wave Animation
         boolean TAKT = true;
         boolean* TAKT_ptr = &TAKT;
+
+        //variablen für wave2 Animation
+        boolean TAKT_offen = true;
+        boolean* TAKT_offen_ptr = &TAKT_offen;
+        boolean TAKT_geschlossen = true;
+        boolean* TAKT_geschlossen_ptr = &TAKT_geschlossen;
 
         //allgemeine Variablen für Animationen
         int _animationSpeedMicros = 5000;                   //animationSpeed refers to the time between a change in brightness (in Microsekunden = 1/100.000s)
@@ -62,7 +69,7 @@ class MyLEDHandler{
         int _pause_on_max_brightness_value = 0;
         int* _pause_on_max_brightness_value_ptr = &_pause_on_max_brightness_value;
 
-        int _minBrightness = 50;
+        int _minBrightness = 0;
         int* _minBrightness_ptr = &_minBrightness;
 
         //private Funktionen
@@ -70,6 +77,7 @@ class MyLEDHandler{
         void play_pulseAnimation();
         void play_waveAnimation();
         void play_bootAnimation();
+        void play_waveAnimation2();
 };
 
 

@@ -32,6 +32,14 @@ void MyLEDHandler::startWaveAnimation(){
     Serial.println("wave started");
 }
 
+void MyLEDHandler::startWaveAnimation2(){
+    *_current_animation_ptr = AnimationEnum::WAVE2;
+    *_currentBrightnessGeschlossen_ptr = 5;
+    *_currentBrightnessOffen_ptr = 5;
+    *TAKT_ptr = true;
+    Serial.println("wave2 started");
+}
+
 void MyLEDHandler::startBootAnimation(){
     *_current_animation_ptr = AnimationEnum::BOOT;
     Serial.println("Boot started");
@@ -92,9 +100,46 @@ void MyLEDHandler::update_currentBrightness(){
         case AnimationEnum::WAVE:
             play_waveAnimation();
             break;
+        case AnimationEnum::WAVE2:
+            play_waveAnimation2();
+            break;
         case AnimationEnum::BOOT:
             //nothing here because animation only plays once
             break;
+    }
+}
+
+void MyLEDHandler::play_waveAnimation2(){
+    if(TAKT){
+        if(TAKT_geschlossen){
+            *_currentBrightnessGeschlossen_ptr += 1;
+            *_currentBrightnessOffen_ptr = 5;
+            if(*_currentBrightnessGeschlossen_ptr >= 255){
+                TAKT_geschlossen = false;
+            }
+        }else{
+            *_currentBrightnessGeschlossen_ptr -= 1;
+            *_currentBrightnessOffen_ptr = 5;
+            if(*_currentBrightnessGeschlossen_ptr <= 5){
+                TAKT_geschlossen = true;
+                *TAKT_ptr = false;
+            }
+        }
+    }else{
+        if(TAKT_offen){
+            *_currentBrightnessOffen_ptr += 1;
+            *_currentBrightnessGeschlossen_ptr = 5;
+            if(*_currentBrightnessOffen_ptr >= 255){
+                TAKT_offen = false;
+            }
+        }else{
+            *_currentBrightnessOffen_ptr -= 1;
+            *_currentBrightnessGeschlossen_ptr = 5;
+            if(*_currentBrightnessOffen_ptr <= 5){
+                TAKT_offen = true;
+                *TAKT_ptr = true;
+            }
+        }
     }
 }
 

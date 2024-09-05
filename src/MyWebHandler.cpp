@@ -138,6 +138,10 @@ void MyWebHandler::setMinBrightness(){
   Serial.println("updateAnimationSpeed called");
 }
 
+void MyWebHandler::startWaveAnimation2(){
+  _myLEDHandler.startWaveAnimation2();
+}
+
 void MyWebHandler::setup(const char* ssid,const char* password){
   //WiFi - um Handy/Laptop mit WLAN des ESPs zu verbinden -> mit ESP im gleichen Netzwerk
   WiFi.softAP(ssid, password);
@@ -158,6 +162,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/setAnimationIncrement", std::bind(&MyWebHandler::setAnimationIncrement, this));
   _server.on("/setPauseOnMaxBrightness", std::bind(&MyWebHandler::setPauseOnMaxBrightness, this));
   _server.on("/setMinBrightness", std::bind(&MyWebHandler::setMinBrightness, this));
+  _server.on("/startWaveAnimation2", std::bind(&MyWebHandler::startWaveAnimation2, this));
   _server.begin();
 };
 
