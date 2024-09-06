@@ -14,6 +14,7 @@ void MyWebHandler::test(){
 }
 
 void MyWebHandler::startPulseAnimation(){
+  _myLEDHandler.startPulseAnimation();
   String htmlContent = HTML_PULSE;
   htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
@@ -21,7 +22,6 @@ void MyWebHandler::startPulseAnimation(){
   htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   htmlContent.replace("{MIN_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMinBrightness()));
   _server.send(200, "text/html", htmlContent);
-  _myLEDHandler.startPulseAnimation();
 }
 
 void MyWebHandler::stopAnimations(){

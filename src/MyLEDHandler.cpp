@@ -15,6 +15,7 @@ void MyLEDHandler::startPulseAnimation(){
     *_current_animation_ptr = AnimationEnum::PULSE;
     *_currentBrightnessGeschlossen_ptr = 0;
     *_currentBrightnessOffen_ptr = 0;
+    *_animationSpeedMicros_ptr = 5000;
     Serial.println("pulse started");
 }
 
