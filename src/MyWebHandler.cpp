@@ -34,7 +34,6 @@ void MyWebHandler::startWaveAnimation(){
   htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
   htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
-  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   htmlContent.replace("{MIN_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMinBrightness()));
   _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startWaveAnimation();
@@ -139,7 +138,34 @@ void MyWebHandler::setMinBrightness(){
 }
 
 void MyWebHandler::startWaveAnimation2(){
+  String htmlContent = HTML_WAVE2;
+  htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
+  htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
+  htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
+  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
+  htmlContent.replace("{MIN_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMinBrightness()));
+  htmlContent.replace("{OFFSET_PLATZHALTER}", String(_myLEDHandler.getOffsetWave2()));
+  _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startWaveAnimation2();
+}
+
+void MyWebHandler::setOffsetWave2(){
+  if(_server.hasArg("plain")){
+    StaticJsonDocument<200> doc;  //veraltet (noch austauschen)
+    DeserializationError error = deserializeJson(doc, _server.arg("plain"));
+
+    if(error){
+      Serial.println("ERROR WITH DESERIALIZATION");
+      return;
+    }
+
+    String newOffset = doc["newOffset"];
+    Serial.println(newOffset);
+    _myLEDHandler.setOffsetWave2(newOffset.toInt());
+  }else{
+    Serial.println("ERROR: no data transmitted");
+  }
+  Serial.println("updateAnimationSpeed called");
 }
 
 void MyWebHandler::setup(const char* ssid,const char* password){
@@ -163,6 +189,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/setPauseOnMaxBrightness", std::bind(&MyWebHandler::setPauseOnMaxBrightness, this));
   _server.on("/setMinBrightness", std::bind(&MyWebHandler::setMinBrightness, this));
   _server.on("/startWaveAnimation2", std::bind(&MyWebHandler::startWaveAnimation2, this));
+  _server.on("/setOffsetWave2", std::bind(&MyWebHandler::setOffsetWave2, this));
   _server.begin();
 };
 

@@ -25,6 +25,8 @@ class MyLEDHandler{
         int getPauseOnMaxBrightness();
         int getMinBrightness();
         void startWaveAnimation2();
+        void setOffsetWave2(int);
+        int getOffsetWave2();
         
     private:
         int _pinOffen;
@@ -49,6 +51,8 @@ class MyLEDHandler{
         boolean* TAKT_offen_ptr = &TAKT_offen;
         boolean TAKT_geschlossen = true;
         boolean* TAKT_geschlossen_ptr = &TAKT_geschlossen;
+        int _offset_wave2 = 50;
+        int* _offset_wave2_ptr = &_offset_wave2;
 
         //allgemeine Variablen für Animationen
         int _animationSpeedMicros = 5000;                   //animationSpeed refers to the time between a change in brightness (in Microsekunden = 1/100.000s)

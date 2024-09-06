@@ -22,6 +22,7 @@ class MyWebHandler {
         void setPauseOnMaxBrightness();
         void setMinBrightness();
         void startWaveAnimation2();
+        void setOffsetWave2();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;
@@ -86,6 +87,25 @@ class MyWebHandler {
         "       .then(data => console.log(data))\n"
         "       .catch(error => console.error('Error:', error));\n"
         "   }\n";
+
+        String JAVASCRIPT_SET_OFFSET_WAVE2 =
+        "   function setOffsetWave2(value){\n"
+        "       document.getElementById('offsetP').textContent = 'Offset: ' + value.toString()\n"
+        "       fetch('http://192.168.4.1/setOffsetWave2', {\n"
+        "           method: 'POST',\n"
+        "           headers: {\n"
+        "                'Content-Type': 'application/json'\n"
+        "           },\n"
+        "           body: JSON.stringify({ newOffset: value })\n"
+        "       })\n"
+        "       .then(response => response.json())\n"
+        "       .then(data => console.log(data))\n"
+        "       .catch(error => console.error('Error:', error));\n"
+        "   }\n";
+
+         String HTML_UPDATE_OFFSET_WAVE2 = 
+        "    <center><p id=\"offsetP\">Offset: ({OFFSET_PLATZHALTER})</p></center>\n"
+        "    <center><input type=\"range\" min=\"5\" max=\"200\" value=\"{OFFSET_PLATZHALTER}\" id=\"offset\" onchange=\"setOffsetWave2(this.value)\"></center>\n";
 
         String HTML_UPDATE_ANIMATION_SPEED = 
         "    <center><p id=\"animationSpeedP\">Gesamtdauer: ({ANIMATION_SPEED_PLATZHALTER})</p></center>\n"
@@ -212,6 +232,32 @@ class MyWebHandler {
         String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         String(JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS) +
         String(JAVASCRIPT_SET_MIN_BRIGHTNESS) +
+        "</script>\n"
+        "</html>\n";
+
+        String HTML_WAVE2 = 
+        "<!DOCTYPE html>\n"
+        "<html lang=\"de\">\n"
+        "<head>\n"
+        "    <meta charset=\"UTF-8\">\n"
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+        "    <title>Document</title>\n"
+        "</head>\n"
+        "<body>\n"
+        "    <center><h1>Wave Labor 2</h1></center>\n"
+        "    <center><a href=\"/stop\">stop</a></center>\n" +
+        String(HTML_UPDATE_MAX_BRIGHTNESS) +
+        String(HTML_UPDATE_ANIMATION_SPEED) +
+        String(HTML_ANIMATION_INCREMENT) +
+        String(HTML_SET_MIN_BRIGHTNESS) +
+        String(HTML_UPDATE_OFFSET_WAVE2) +
+        "</body>\n"
+        "<script>\n" + 
+        String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
+        String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
+        String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
+        String(JAVASCRIPT_SET_MIN_BRIGHTNESS) +
+        String(JAVASCRIPT_SET_OFFSET_WAVE2) +
         "</script>\n"
         "</html>\n";
 };

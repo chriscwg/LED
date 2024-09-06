@@ -92,6 +92,14 @@ void MyLEDHandler::setMinBrightness(int newMinBrightness){
     }
 }
 
+void MyLEDHandler::setOffsetWave2(int newOffset){
+    if(newOffset >= 5 && newOffset <= 200){
+        *_offset_wave2_ptr = newOffset;
+    }else{
+        Serial.println("input invalid");
+    }    
+}
+
 void MyLEDHandler::update_currentBrightness(){
     switch(_current_animation){
         case AnimationEnum::PULSE:
@@ -112,7 +120,6 @@ void MyLEDHandler::update_currentBrightness(){
 void MyLEDHandler::play_waveAnimation2(){
     if(OFFEN_ON){
         *_currentBrightnessOffen_ptr += _animation_increment;
-        //*_currentBrightnessGeschlossen_ptr = 5;
         if(*_currentBrightnessOffen_ptr >= 255){
             *OFFEN_ON_ptr = false;
         }
@@ -120,7 +127,7 @@ void MyLEDHandler::play_waveAnimation2(){
     else if(!OFFEN_ON){
         if(*_currentBrightnessOffen_ptr > 5){
             *_currentBrightnessOffen_ptr -= _animation_increment;
-            if(*_currentBrightnessOffen_ptr <= 50 && !GESCHLOSSEN_ON){
+            if(*_currentBrightnessOffen_ptr <= *_offset_wave2_ptr && !GESCHLOSSEN_ON){
                 *GESCHLOSSEN_ON_ptr = true;
             }
         }
@@ -130,12 +137,12 @@ void MyLEDHandler::play_waveAnimation2(){
         *_currentBrightnessGeschlossen_ptr += _animation_increment;
         if(*_currentBrightnessGeschlossen_ptr >= 255){
             *GESCHLOSSEN_ON_ptr = false;
-        }        
+        }
     }
     else if(!GESCHLOSSEN_ON){
         if(*_currentBrightnessGeschlossen_ptr > 5){
             *_currentBrightnessGeschlossen_ptr -= _animation_increment;
-            if(*_currentBrightnessGeschlossen_ptr <= 50 && !OFFEN_ON){
+            if(*_currentBrightnessGeschlossen_ptr <= *_offset_wave2_ptr && !OFFEN_ON){
                 *OFFEN_ON_ptr = true;
             }
         }
@@ -251,4 +258,8 @@ int MyLEDHandler::getPauseOnMaxBrightness(){
 
 int MyLEDHandler::getMinBrightness(){
     return *_minBrightness_ptr;
+}
+
+int MyLEDHandler::getOffsetWave2(){
+    return *_offset_wave2_ptr;
 }
