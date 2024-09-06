@@ -64,8 +64,8 @@ void MyLEDHandler::loop(){
 
         analogWrite(_pinOffen, H_offen);   
         analogWrite(_pinGeschlossen, H_geschlossen);
-        if(_pause_on_max_brightness > 0){
-            *_pause_on_max_brightness_ptr = _pause_on_max_brightness - *_animationSpeedMicros_ptr;
+        if(_pause > 0){
+            *_pause_ptr = _pause - *_animationSpeedMicros_ptr;
             //dont call update_currentBrightness before the next 500 milliseconds
         }else{
             update_currentBrightness();
@@ -164,8 +164,7 @@ void MyLEDHandler::play_waveAnimation3(){
             *_currentBrightnessGeschlossen_ptr += 1;
             *_currentBrightnessOffen_ptr = 5;
             if(*_currentBrightnessGeschlossen_ptr >= 255){
-                setPauseOnMaxBrightness(500);
-                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                *_pause_ptr = *_pause_on_max_brightness_value_ptr;
                 TAKT_geschlossen = false;
             }
         }else{
@@ -174,8 +173,7 @@ void MyLEDHandler::play_waveAnimation3(){
             if(*_currentBrightnessGeschlossen_ptr <= 5){
                 TAKT_geschlossen = true;
                 *TAKT_ptr = false;
-                setPauseOnMaxBrightness(500);
-                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                *_pause_ptr = *_pause_totpunkt_ptr;
             }
         }
     }else{
@@ -183,8 +181,7 @@ void MyLEDHandler::play_waveAnimation3(){
             *_currentBrightnessOffen_ptr += 1;
             *_currentBrightnessGeschlossen_ptr = 5;
             if(*_currentBrightnessOffen_ptr >= 255){
-                setPauseOnMaxBrightness(500);
-                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                *_pause_ptr = *_pause_on_max_brightness_value_ptr;
                 TAKT_offen = false;
             }
         }else{
@@ -193,8 +190,7 @@ void MyLEDHandler::play_waveAnimation3(){
             if(*_currentBrightnessOffen_ptr <= 5){
                 TAKT_offen = true;
                 *TAKT_ptr = true;
-                setPauseOnMaxBrightness(500);
-                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                *_pause_ptr = *_pause_totpunkt_ptr;
             }
         }
     }
@@ -224,7 +220,7 @@ void MyLEDHandler::play_waveAnimation(){
 
         if(_currentBrightnessOffen >= 255){
             *TAKT_ptr = !TAKT;                          //wave spezifische Variable
-            *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
+            *_pause_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
         }
     }else{
         _currentBrightnessOffen = _currentBrightnessOffen - _animation_increment;
@@ -232,7 +228,7 @@ void MyLEDHandler::play_waveAnimation(){
 
         if(_currentBrightnessOffen <= 0){
             *TAKT_ptr = !TAKT;                          //wave spezifische Variable
-            *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
+            *_pause_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
         }
     }
 }
@@ -242,7 +238,7 @@ void MyLEDHandler::play_pulseAnimation(){
         _currentBrightnessOffen = _currentBrightnessOffen + _animation_increment;
         if(_currentBrightnessOffen >= 255){
             _increasing__pulse = false;
-            *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
+            *_pause_ptr = *_pause_on_max_brightness_value_ptr;     //allgemeine Variable
         }
     }
     else {

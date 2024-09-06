@@ -55,6 +55,10 @@ class MyLEDHandler{
         int _offset_wave2 = 50;
         int* _offset_wave2_ptr = &_offset_wave2;
 
+        //variablen für wave3 Animation
+        int _pause_totpunkt = 500;
+        int* _pause_totpunkt_ptr = &_pause_totpunkt;
+
         //allgemeine Variablen für Animationen
         int _animationSpeedMicros = 5000;                   //animationSpeed refers to the time between a change in brightness (in Microsekunden = 1/100.000s)
         int* _animationSpeedMicros_ptr = &_animationSpeedMicros;
@@ -72,8 +76,8 @@ class MyLEDHandler{
         int _animation_increment = 1;
         int* _animation_increment_ptr = &_animation_increment;
 
-        int _pause_on_max_brightness = 0;
-        int* _pause_on_max_brightness_ptr = &_pause_on_max_brightness;
+        int _pause = 0;
+        int* _pause_ptr = &_pause;
 
         int _pause_on_max_brightness_value = 0;
         int* _pause_on_max_brightness_value_ptr = &_pause_on_max_brightness_value;
