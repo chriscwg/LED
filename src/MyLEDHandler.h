@@ -39,6 +39,10 @@ class MyLEDHandler{
         //variablen für wave Animation
         boolean TAKT = true;
         boolean* TAKT_ptr = &TAKT;
+        boolean OFFEN_ON = true;
+        boolean* OFFEN_ON_ptr = &OFFEN_ON;
+        boolean GESCHLOSSEN_ON = false;
+        boolean* GESCHLOSSEN_ON_ptr = &GESCHLOSSEN_ON;
 
         //variablen für wave2 Animation
         boolean TAKT_offen = true;

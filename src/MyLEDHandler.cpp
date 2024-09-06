@@ -110,34 +110,33 @@ void MyLEDHandler::update_currentBrightness(){
 }
 
 void MyLEDHandler::play_waveAnimation2(){
-    if(TAKT){
-        if(TAKT_geschlossen){
-            *_currentBrightnessGeschlossen_ptr += 1;
-            *_currentBrightnessOffen_ptr = 5;
-            if(*_currentBrightnessGeschlossen_ptr >= 255){
-                TAKT_geschlossen = false;
-            }
-        }else{
-            *_currentBrightnessGeschlossen_ptr -= 1;
-            *_currentBrightnessOffen_ptr = 5;
-            if(*_currentBrightnessGeschlossen_ptr <= 5){
-                TAKT_geschlossen = true;
-                *TAKT_ptr = false;
+    if(OFFEN_ON){
+        *_currentBrightnessOffen_ptr += _animation_increment;
+        //*_currentBrightnessGeschlossen_ptr = 5;
+        if(*_currentBrightnessOffen_ptr >= 255){
+            *OFFEN_ON_ptr = false;
+        }
+    }
+    else if(!OFFEN_ON){
+        if(*_currentBrightnessOffen_ptr > 5){
+            *_currentBrightnessOffen_ptr -= _animation_increment;
+            if(*_currentBrightnessOffen_ptr <= 50 && !GESCHLOSSEN_ON){
+                *GESCHLOSSEN_ON_ptr = true;
             }
         }
-    }else{
-        if(TAKT_offen){
-            *_currentBrightnessOffen_ptr += 1;
-            *_currentBrightnessGeschlossen_ptr = 5;
-            if(*_currentBrightnessOffen_ptr >= 255){
-                TAKT_offen = false;
-            }
-        }else{
-            *_currentBrightnessOffen_ptr -= 1;
-            *_currentBrightnessGeschlossen_ptr = 5;
-            if(*_currentBrightnessOffen_ptr <= 5){
-                TAKT_offen = true;
-                *TAKT_ptr = true;
+    }
+
+    if(GESCHLOSSEN_ON){
+        *_currentBrightnessGeschlossen_ptr += _animation_increment;
+        if(*_currentBrightnessGeschlossen_ptr >= 255){
+            *GESCHLOSSEN_ON_ptr = false;
+        }        
+    }
+    else if(!GESCHLOSSEN_ON){
+        if(*_currentBrightnessGeschlossen_ptr > 5){
+            *_currentBrightnessGeschlossen_ptr -= _animation_increment;
+            if(*_currentBrightnessGeschlossen_ptr <= 50 && !OFFEN_ON){
+                *OFFEN_ON_ptr = true;
             }
         }
     }
