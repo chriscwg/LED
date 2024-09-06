@@ -35,6 +35,7 @@ void MyWebHandler::startWaveAnimation(){
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
   htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
   htmlContent.replace("{MIN_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMinBrightness()));
+  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   _server.send(200, "text/html", htmlContent);
   _myLEDHandler.startWaveAnimation();
 }
@@ -138,15 +139,14 @@ void MyWebHandler::setMinBrightness(){
 }
 
 void MyWebHandler::startWaveAnimation2(){
+  _myLEDHandler.startWaveAnimation2();
   String htmlContent = HTML_WAVE2;
   htmlContent.replace("{ANIMATION_SPEED_PLATZHALTER}", String(_myLEDHandler.getAnimationSpeed()));
   htmlContent.replace("{ANIMATION_INCREMENT_PLATZHALTER}", String(_myLEDHandler.getAnimationIncrement()));
   htmlContent.replace("{MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMaxBrightness()));
-  htmlContent.replace("{PAUSE_ON_MAX_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getPauseOnMaxBrightness()));
   htmlContent.replace("{MIN_BRIGHTNESS_PLATZHALTER}", String(_myLEDHandler.getMinBrightness()));
   htmlContent.replace("{OFFSET_PLATZHALTER}", String(_myLEDHandler.getOffsetWave2()));
   _server.send(200, "text/html", htmlContent);
-  _myLEDHandler.startWaveAnimation2();
 }
 
 void MyWebHandler::setOffsetWave2(){

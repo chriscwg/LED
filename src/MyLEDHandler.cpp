@@ -36,6 +36,7 @@ void MyLEDHandler::startWaveAnimation2(){
     *_current_animation_ptr = AnimationEnum::WAVE2;
     *_currentBrightnessGeschlossen_ptr = 5;
     *_currentBrightnessOffen_ptr = 5;
+    *_animationSpeedMicros_ptr = 8500;
     *TAKT_ptr = true;
     Serial.println("wave2 started");
 }
