@@ -27,6 +27,7 @@ class MyLEDHandler{
         void startWaveAnimation2();
         void setOffsetWave2(int);
         int getOffsetWave2();
+        void startWaveAnimation3();
         
     private:
         int _pinOffen;
@@ -86,6 +87,7 @@ class MyLEDHandler{
         void play_waveAnimation();
         void play_bootAnimation();
         void play_waveAnimation2();
+        void play_waveAnimation3();
 };
 
 

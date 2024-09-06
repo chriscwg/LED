@@ -23,6 +23,7 @@ class MyWebHandler {
         void setMinBrightness();
         void startWaveAnimation2();
         void setOffsetWave2();
+        void startWaveAnimation3();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;
@@ -254,6 +255,7 @@ class MyWebHandler {
         String(HTML_SET_MIN_BRIGHTNESS) +
         String(HTML_UPDATE_OFFSET_WAVE2) +
         "</body>\n"
+
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +

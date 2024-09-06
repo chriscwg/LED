@@ -48,6 +48,10 @@ void MyLEDHandler::startBootAnimation(){
     play_bootAnimation();
 }
 
+void MyLEDHandler::startWaveAnimation3(){
+    *_current_animation_ptr = AnimationEnum::WAVE3;
+    Serial.println("wave3 started");
+}
 
 void MyLEDHandler::loop(){
     unsigned long currentMicros = micros();
@@ -116,6 +120,9 @@ void MyLEDHandler::update_currentBrightness(){
         case AnimationEnum::BOOT:
             //nothing here because animation only plays once
             break;
+        case AnimationEnum::WAVE3:
+            play_waveAnimation3();
+            break;
     }
 }
 
@@ -151,6 +158,48 @@ void MyLEDHandler::play_waveAnimation2(){
     }
 }
 
+void MyLEDHandler::play_waveAnimation3(){
+    if(TAKT){
+        if(TAKT_geschlossen){
+            *_currentBrightnessGeschlossen_ptr += 1;
+            *_currentBrightnessOffen_ptr = 5;
+            if(*_currentBrightnessGeschlossen_ptr >= 255){
+                setPauseOnMaxBrightness(500);
+                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                TAKT_geschlossen = false;
+            }
+        }else{
+            *_currentBrightnessGeschlossen_ptr -= 1;
+            *_currentBrightnessOffen_ptr = 5;
+            if(*_currentBrightnessGeschlossen_ptr <= 5){
+                TAKT_geschlossen = true;
+                *TAKT_ptr = false;
+                setPauseOnMaxBrightness(500);
+                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+            }
+        }
+    }else{
+        if(TAKT_offen){
+            *_currentBrightnessOffen_ptr += 1;
+            *_currentBrightnessGeschlossen_ptr = 5;
+            if(*_currentBrightnessOffen_ptr >= 255){
+                setPauseOnMaxBrightness(500);
+                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+                TAKT_offen = false;
+            }
+        }else{
+            *_currentBrightnessOffen_ptr -= 1;
+            *_currentBrightnessGeschlossen_ptr = 5;
+            if(*_currentBrightnessOffen_ptr <= 5){
+                TAKT_offen = true;
+                *TAKT_ptr = true;
+                setPauseOnMaxBrightness(500);
+                *_pause_on_max_brightness_ptr = *_pause_on_max_brightness_value_ptr;
+            }
+        }
+    }
+}
+
 void MyLEDHandler::setAnimationIncrement(int newAnimationIncrement){
     if(newAnimationIncrement >= 1 && newAnimationIncrement <= 5){
         *_animation_increment_ptr = newAnimationIncrement;
@@ -160,7 +209,7 @@ void MyLEDHandler::setAnimationIncrement(int newAnimationIncrement){
 }
 
 void MyLEDHandler::setPauseOnMaxBrightness(int newPauseOnMaxBrightness){
-    if(newPauseOnMaxBrightness >= 0 && newPauseOnMaxBrightness <= 1000){
+    if(newPauseOnMaxBrightness >= 0 && newPauseOnMaxBrightness <= 5000){
         *_pause_on_max_brightness_value_ptr = newPauseOnMaxBrightness * 1000;
         Serial.println(*_pause_on_max_brightness_value_ptr);
     }else{
