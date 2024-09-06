@@ -195,7 +195,7 @@ void MyWebHandler::setup(const char* ssid,const char* password){
 };
 
 void MyWebHandler::startWaveAnimation3(){
-  _server.send(200, "text/html", "<h1>ye</h1>");
+  _server.send(200, "text/html", HTML_WAVE3);
   _myLEDHandler.startWaveAnimation3();
 }
 

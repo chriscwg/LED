@@ -264,6 +264,30 @@ class MyWebHandler {
         String(JAVASCRIPT_SET_OFFSET_WAVE2) +
         "</script>\n"
         "</html>\n";
+
+        String HTML_WAVE3 =
+       "<!DOCTYPE html>\n"
+        "<html lang=\"de\">\n"
+        "<head>\n"
+        "    <meta charset=\"UTF-8\">\n"
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+        "    <title>Document</title>\n"
+        "</head>\n"
+        "<body>\n"
+        "    <center><h1>Wave Labor 3</h1></center>\n"
+        "    <center><a href=\"/stop\">stop</a></center>\n" +
+        String(HTML_UPDATE_MAX_BRIGHTNESS) +
+        String(HTML_UPDATE_ANIMATION_SPEED) +
+        String(HTML_ANIMATION_INCREMENT) +
+        String(HTML_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        "</body>\n"
+        "<script>\n" + 
+        String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
+        String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
+        String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
+        String(JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        "</script>\n"
+        "</html>\n";
 };
 
 #endif
