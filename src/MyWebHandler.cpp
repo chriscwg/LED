@@ -191,8 +191,14 @@ void MyWebHandler::setup(const char* ssid,const char* password){
   _server.on("/startWaveAnimation2", std::bind(&MyWebHandler::startWaveAnimation2, this));
   _server.on("/setOffsetWave2", std::bind(&MyWebHandler::setOffsetWave2, this));
   _server.on("/startWaveAnimation3", std::bind(&MyWebHandler::startWaveAnimation3, this));
+  _server.on("/startWaveAnimation4", std::bind(&MyWebHandler::startWaveAnimation4, this));
   _server.begin();
 };
+
+void MyWebHandler::startWaveAnimation4(){
+  _server.send(200, "text/html", "<h1>ani 4</h1>");
+  _myLEDHandler.startWaveAnimation4();
+}
 
 void MyWebHandler::startWaveAnimation3(){
   _server.send(200, "text/html", HTML_WAVE3);

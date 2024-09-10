@@ -24,6 +24,7 @@ class MyWebHandler {
         void startWaveAnimation2();
         void setOffsetWave2();
         void startWaveAnimation3();
+        void startWaveAnimation4();
 
         WebServer _server;
         MyLEDHandler _myLEDHandler;
@@ -280,12 +281,14 @@ class MyWebHandler {
         String(HTML_UPDATE_ANIMATION_SPEED) +
         String(HTML_ANIMATION_INCREMENT) +
         String(HTML_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        //here -> SET_PAUSE_ON_TOTPUNKT
         "</body>\n"
         "<script>\n" + 
         String(JAVASCRIPT_UPDATE_MAX_BRIGHTNESS_FUNCTION) + 
         String(JAVASCRIPT_UPDATE_ANIMATION_SPEED_FUNCTION) +
         String(JAVASCRIPT_SET_ANIMATION_INCREMENT) +
         String(JAVASCRIPT_SET_PAUSE_ON_MAX_BRIGHTNESS) +
+        //here -> SET_PAUSE_ON_TOTPUNKT
         "</script>\n"
         "</html>\n";
 };

@@ -7,6 +7,7 @@ enum class AnimationEnum {
     WAVE,
     WAVE2,
     WAVE3,
+    WAVE4,
     BOOT
 };
 

@@ -53,6 +53,12 @@ void MyLEDHandler::startWaveAnimation3(){
     Serial.println("wave3 started");
 }
 
+void MyLEDHandler::startWaveAnimation4(){
+    play_waveAnimation4();
+    *_current_animation_ptr = AnimationEnum::WAVE4;
+    Serial.println("wave4 started");
+}
+
 void MyLEDHandler::loop(){
     unsigned long currentMicros = micros();
 
@@ -123,6 +129,51 @@ void MyLEDHandler::update_currentBrightness(){
         case AnimationEnum::WAVE3:
             play_waveAnimation3();
             break;
+        case AnimationEnum::WAVE4:
+            //nothing here because animation only plays once
+            break;
+    }
+}
+
+void MyLEDHandler::play_waveAnimation4(){
+    for(int j=0; j<10; j++){
+        for(int i=0; i<50; i++){
+            analogWrite(_pinGeschlossen, i);
+            delay(5);
+        }
+        for(int i=0; i<256; i++){
+            analogWrite(_pinOffen, i);
+            delay(5);
+        }
+        delay(50);
+        for(int i=255; i>=0; i--){
+            if(i<=50){
+                analogWrite(_pinGeschlossen, i);
+            }
+            analogWrite(_pinOffen, i);
+            delay(15);
+        }
+
+        delay(100);
+
+        for(int i=0; i<50; i++){
+            analogWrite(_pinOffen, i);
+            delay(5);
+        }
+        for(int i=0; i<256; i++){
+            analogWrite(_pinGeschlossen, i);
+            delay(5);
+        }
+        delay(50);
+        for(int i=255; i>=0; i--){
+            if(i<=50){
+                analogWrite(_pinOffen, i);
+            }
+            analogWrite(_pinGeschlossen, i);
+            delay(15);
+        }
+
+        delay(100);
     }
 }
 

@@ -28,6 +28,7 @@ class MyLEDHandler{
         void setOffsetWave2(int);
         int getOffsetWave2();
         void startWaveAnimation3();
+        void startWaveAnimation4();
         
     private:
         int _pinOffen;
@@ -58,6 +59,9 @@ class MyLEDHandler{
         //variablen für wave3 Animation
         int _pause_totpunkt = 500;
         int* _pause_totpunkt_ptr = &_pause_totpunkt;
+
+        //variablen für wave4 Animation
+        
 
         //allgemeine Variablen für Animationen
         int _animationSpeedMicros = 5000;                   //animationSpeed refers to the time between a change in brightness (in Microsekunden = 1/100.000s)
@@ -92,6 +96,7 @@ class MyLEDHandler{
         void play_bootAnimation();
         void play_waveAnimation2();
         void play_waveAnimation3();
+        void play_waveAnimation4();
 };
 
 
