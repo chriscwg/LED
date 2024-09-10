@@ -136,7 +136,7 @@ void MyLEDHandler::update_currentBrightness(){
 }
 
 void MyLEDHandler::play_waveAnimation4(){
-    for(int j=0; j<10; j++){
+    for(int j=0; j<5; j++){
         for(int i=0; i<50; i++){
             analogWrite(_pinGeschlossen, i);
             delay(5);
